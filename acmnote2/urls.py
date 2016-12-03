@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'', include('authentication.urls')),
     url(r'', include('note.urls')),
     url(r'', include('group.urls')),
+    url(r'', include('submission.urls')),
 
     # test for myself table columns
     url(r'^table/', include('table.urls')),

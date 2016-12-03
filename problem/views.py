@@ -14,6 +14,40 @@ from functools import reduce
 class MyDataView(FeedDataView):
     token = ProblemTable.token
 
+    def sort_queryset(self, queryset):
+        def get_sort_arguments():
+            """
+            Get list of arguments passed to `order_by()` function.
+            """
+            arguments = []
+            for key, value in self.query_data.items():
+                if not key.startswith("iSortCol_"):
+                    continue
+                print(self.columns[value].field)
+                print(len(self.columns[value].field))
+                if isinstance(self.columns[value].field, set):
+                    for field in self.columns[value].field:
+                        field = field.replace('.', '__')
+                        dir = self.query_data["sSortDir_" + key.split("_")[1]]
+                        if dir == "asc":
+                            arguments.insert(0, field)
+                            # arguments.append(field)
+                        else:
+                            arguments.insert(0, "-" + field)
+                            # arguments.append("-" + field)
+                else:
+                    field = self.columns[value].field.replace('.', '__')
+                    dir = self.query_data["sSortDir_" + key.split("_")[1]]
+                    if dir == "asc":
+                        arguments.append(field)
+                    else:
+                        arguments.append("-" + field)
+            return arguments
+        order_args = get_sort_arguments()
+        if order_args:
+            queryset = queryset.order_by(*order_args)
+        return queryset
+
     def get_queryset(self, **kwargs):
         return super(MyDataView, self).get_queryset().filter(visible=True)
 
@@ -86,6 +120,16 @@ def problem_page(request, problem_id):
         note = None
     if user:
         status = 2 if note else 1
+    print(problem.input)
+    ins = problem.input[2:-2].split("', '")
+    _input = []
+    for obj in ins:
+        _input.append(obj.replace("\\r\\n", "<br>"))
+    ous = problem.output[2:-2].split("', '")
+    _output = []
+    for obj in ous:
+        _output.append(obj.replace("\\r\\n", "<br>"))
     return render(request, 'problem/problem_page.html',
-                  {'problem': problem, 'status': status, 'note': note})
+                  {'problem': problem, 'status': status, 'note': note,
+                   'input': _input, 'output': _output})
 

@@ -16,4 +16,5 @@ urlpatterns = [
         NoteTagAutoComplete.as_view(create_field='name'),
         name='note-tag-autocomplete',
     ),
+    url(r'^table/data/notes/$', views.MyDataView.as_view(), name='table_data_note'),
 ]

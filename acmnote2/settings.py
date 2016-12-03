@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'announcement',
     'note',
     'group',
+    'submission',
+    'submit_dispatcher',
     'util',
 
     'django_summernote',  # 富文本编辑器
@@ -162,6 +164,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 
 LOGIN_URL = '/login/'
+
+# CELERY SETTINGS
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
 # 管理员
 manager_code = '0123456789'
 

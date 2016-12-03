@@ -5,21 +5,22 @@ from table.utils import A
 from table.columns import Column, LinkColumn, DatetimeColumn
 from util.mytables import MyLink
 from util.mytables import MyDateTimeColumn
+from django.core.urlresolvers import reverse_lazy
 
 
 class ClassicNoteTable(Table):
 
-    id = LinkColumn(header=u'#',
+    id = LinkColumn(header=u'#', field='id',
                     links=[MyLink(field='id',
                                   viewname='note_page',
                                   args=(A('id'),)), ],
                     )
     # id = Column(field='id', header=u'#',
     #             header_attrs={'width': '5%'})
-    user = Column(field='get_author_name', header=u'用户',
+    user = Column(field='author', header=u'用户',
                   header_attrs={'width': '20%'})
 
-    problem_info = LinkColumn(header=u'题目信息',
+    problem_info = LinkColumn(header=u'题目信息', field='problem',
                               links=[MyLink(field='get_problem_info',
                                             viewname='problem_page',
                                             args=(A('problem.id'),)), ],
@@ -40,4 +41,5 @@ class ClassicNoteTable(Table):
         search = True
         search_placeholder = 'search'
         pagination = True
+        ajax_source = reverse_lazy('table_data_note')
         ajax = True

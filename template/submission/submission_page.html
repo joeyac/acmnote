@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}
-    {{ problem.title }}
+    {{ problem.title }} - 提交
 {% endblock %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{% load staticfiles %}
 {% block body %}
     <div class="container main">
         <ul class="nav nav-tabs nav-tabs-google">
@@ -23,12 +27,8 @@
                 </li>
             {% endif %}
         </ul>
-        {% include "problem/_problem_header.html" %}
         <div>
-            {% include "problem/_problem_main_info.html" %}
-        </div>
-        <div>
-            {% include "problem/_problem_bottom.html" %}
+            {% include "submission/_submission_submit.html" %}
         </div>
     </div>
 {% endblock %}

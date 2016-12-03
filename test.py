@@ -34,7 +34,7 @@ def init():
     oj = [('codeforces', 1), ('poj', 1000), ('hdu', 1000)]
     for name, max_id in oj:
         noj = OJ.objects.get_or_create(name=name, max_problem_id=max_id)
-        print(noj.name)
+        print(noj)
 
 
 def update_cf(up_id=None):
@@ -89,8 +89,8 @@ def update_hdu(up_id=None):
 
 
 if __name__ == '__main__':
-    # init()
-    # update_poj(1121)
-    # update_hdu(1100)
+    init()
+    update_poj(1121)
+    update_hdu(1100)
     update_cf(20)
     print("Done!")
