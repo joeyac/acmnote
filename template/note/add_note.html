@@ -22,6 +22,9 @@
             <li role="presentation" class="active">
                 <a href="/add/note/{{ problem.id }}/">添加笔记</a>
             </li>
+            <li role="presentation">
+                <a href="/submit/{{ problem.id }}/">提交</a>
+            </li>
         </ul>
         {% include "problem/_problem_header.html" %}
         <form method="post" class="form">

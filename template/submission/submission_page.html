@@ -9,7 +9,7 @@
 {% block body %}
     <div class="container main">
         <ul class="nav nav-tabs nav-tabs-google">
-            <li role="presentation" class="active">
+            <li role="presentation">
                 <a href="/problem/{{ problem.id }}/">题目</a>
             </li>
             {% if status == 1 %}
@@ -22,7 +22,7 @@
                 </li>
             {% endif %}
             {% if status >= 1 %}
-                <li role="presentation">
+                <li role="presentation"  class="active">
                     <a href="/submit/{{ problem.id }}/">提交</a>
                 </li>
             {% endif %}

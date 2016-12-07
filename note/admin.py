@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import ClassicNote,NoteTag
+from .models import ClassicNote, NoteTag
 from django_summernote.admin import SummernoteModelAdmin
 
 
