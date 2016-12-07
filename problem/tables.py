@@ -2,8 +2,8 @@
 from .models import *
 from table import Table
 from table.utils import A
-from table.columns import Column, LinkColumn
-from util.mytables import MyLink
+from table.columns import Column, LinkColumn, Link
+from util.mytables import MyLink, MyLinkColumn
 from django.core.urlresolvers import reverse_lazy
 
 
@@ -12,7 +12,9 @@ class ProblemTable(Table):
 
     ids = Column(field='id', header=u'#', header_attrs={'width': '5%'})
     oj_all = LinkColumn(header=u'OJ&ID', field={'oj', 'oj_id'},
-                        links=[MyLink(field='oj_all', viewname='problem_page', args=(A('id'),)), ],
+                        links=[MyLink(field='oj_all',
+                                      attrs={"href": A('origin_url')}, ), ],
+
                         header_attrs={'width': '10%'}, searchable=True
                         )
     title = LinkColumn(header=u'标题', field='title',

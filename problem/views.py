@@ -120,16 +120,15 @@ def problem_page(request, problem_id):
         note = None
     if user:
         status = 2 if note else 1
-    print(problem.input)
-    ins = problem.input[2:-2].split("', '")
-    _input = []
-    for obj in ins:
-        _input.append(obj.replace("\\r\\n", "<br>"))
-    ous = problem.output[2:-2].split("', '")
-    _output = []
-    for obj in ous:
-        _output.append(obj.replace("\\r\\n", "<br>"))
+    # print(problem.input)
+    # ins = problem.input[2:-2].split("', '")
+    # _input = []
+    # for obj in ins:
+    #     _input.append(obj.replace("\\r\\n", "<br>"))
+    # ous = problem.output[2:-2].split("', '")
+    # _output = []
+    # for obj in ous:
+    #     _output.append(obj.replace("\\r\\n", "<br>"))
     return render(request, 'problem/problem_page.html',
-                  {'problem': problem, 'status': status, 'note': note,
-                   'input': _input, 'output': _output})
+                  {'problem': problem, 'status': status, 'note': note})
 

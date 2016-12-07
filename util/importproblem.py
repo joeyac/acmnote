@@ -140,7 +140,6 @@ def get_cf_info(problem_id, problem_c):
 
     reg_input = '<div class="title">Input</div>(.*?)</div>'
     inputs = re.findall(reg_input, html, re.S)
-    # print(inputs)
 
     reg_out = '<div class="title">Output</div>(.*?)</div>'
     outputs = re.findall(reg_out, html, re.S)
@@ -157,9 +156,29 @@ def import_cf(problem_id, problem_c):
     res = get_cf_info(problem_id, problem_c)
     if not res:
         return False
+    base_url = 'http://codeforces.com/problemset/problem'
     user = User.objects.get_by_natural_key('xjw')
     my_user = MyUser.objects.get(user=user)
     pid = str(problem_id)+str(problem_c)
+    _input = ''
+    _output = ''
+    if len(res['input']) == 1:
+        _input = str(res['input'][0])
+    else:
+        cnt = 0
+        for ins in res['input']:
+            cnt += 1
+            _input += "样例 " + str(cnt) + " : <br>"
+            _input += str(ins)
+
+    if len(res['output']) == 1:
+        _output = str(res['output'][0])
+    else:
+        cnt = 0
+        for ous in res['output']:
+            cnt += 1
+            _output += "样例 " + str(cnt) + " : <br>"
+            _output += str(ous)
     Problem.objects.update_or_create(
         oj=oj_name,
         oj_id=pid,
@@ -169,10 +188,11 @@ def import_cf(problem_id, problem_c):
                   'description': res['description'],
                   'input_description': res['input_description'],
                   'output_description': res['output_description'],
-                  'input': res['input'],
-                  'output': res['output'],
+                  'input': _input,
+                  'output': _output,
                   'create_by': my_user,
-                  'hint': '导入功能测试'
+                  'hint': '自动导入',
+                  'origin_url': base_url + '/' + str(problem_id) + '/' + str(problem_c),
                   },
     )
     print(oj_name + pid + " : success!")
@@ -185,8 +205,30 @@ def import_hdu(problem_id):
     if not res:
         return False
     user = User.objects.get_by_natural_key('xjw')
+    base_url = 'http://acm.hdu.edu.cn/showproblem.php?pid='
     my_user = MyUser.objects.get(user=user)
     pid = str(problem_id)
+
+    _input = ''
+    _output = ''
+    if len(res['input']) == 1:
+        _input = str(res['input'][0])
+    else:
+        cnt = 0
+        for ins in res['input']:
+            cnt += 1
+            _input += "样例 " + str(cnt) + " : <br>"
+            _input += str(ins)
+
+    if len(res['output']) == 1:
+        _output = str(res['output'][0])
+    else:
+        cnt = 0
+        for ous in res['output']:
+            cnt += 1
+            _output += "样例 " + str(cnt) + " : <br>"
+            _output += str(ous)
+
     Problem.objects.update_or_create(
         oj=oj_name,
         oj_id=pid,
@@ -196,10 +238,11 @@ def import_hdu(problem_id):
                   'description': res['description'],
                   'input_description': res['input_description'],
                   'output_description': res['output_description'],
-                  'input': res['input'],
-                  'output': res['output'],
+                  'input': _input,
+                  'output': _output,
                   'create_by': my_user,
-                  'hint': '导入功能测试'
+                  'hint': '自动导入',
+                  'origin_url': base_url + str(problem_id),
                   },
     )
     print(oj_name + pid + " : success!")
@@ -212,8 +255,30 @@ def import_poj(problem_id):
     if not res:
         return False
     user = User.objects.get_by_natural_key('xjw')
+    base_url = 'http://poj.org/problem?id='
     my_user = MyUser.objects.get(user=user)
     pid = str(problem_id)
+
+    _input = ''
+    _output = ''
+    if len(res['input']) == 1:
+        _input = str(res['input'][0])
+    else:
+        cnt = 0
+        for ins in res['input']:
+            cnt += 1
+            _input += "样例 " + str(cnt) + " : <br>"
+            _input += str(ins)
+
+    if len(res['output']) == 1:
+        _output = str(res['output'][0])
+    else:
+        cnt = 0
+        for ous in res['output']:
+            cnt += 1
+            _output += "样例 " + str(cnt) + " : <br>"
+            _output += str(ous)
+
     Problem.objects.update_or_create(
         oj=oj_name,
         oj_id=pid,
@@ -223,10 +288,11 @@ def import_poj(problem_id):
                   'description': res['description'],
                   'input_description': res['input_description'],
                   'output_description': res['output_description'],
-                  'input': res['input'],
-                  'output': res['output'],
+                  'input': _input,
+                  'output': _output,
                   'create_by': my_user,
-                  'hint': '导入功能测试'
+                  'hint': '自动导入',
+                  'origin_url': base_url + str(problem_id),
                   },
     )
     print(oj_name + pid + " : success!")

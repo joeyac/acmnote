@@ -19,23 +19,17 @@
             {% endautoescape %}
             </div>
         <div class="panel-heading">输入</div>
-            {% for ins in input %}
             <div class="panel-body">
-                样例 {{ forloop.counter }}：<br>
                 {% autoescape off %}
-                    {{ins}}
+                    {{problem.input}}
                 {% endautoescape %}
             </div>
-            {% endfor %}
         <div class="panel-heading">输出</div>
-            {% for ous in output %}
             <div class="panel-body">
-                样例 {{ forloop.counter }}：<br>
                 {% autoescape off %}
-                    {{ous}}
+                    {{problem.output}}
                 {% endautoescape %}
             </div>
-            {% endfor %}
         <div class="panel-heading">Hint</div>
             <div class="panel-body">
             {% autoescape off %}

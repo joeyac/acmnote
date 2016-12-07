@@ -30,10 +30,12 @@ def test():
         print(str(pid)+" : success!")
 
 
-def init():
-    oj = [('codeforces', 1), ('poj', 1000), ('hdu', 1000)]
+def init(num1=1, num2=1000,  num3=1000):
+    oj = [('codeforces', num1), ('poj', num2), ('hdu', num3)]
     for name, max_id in oj:
-        noj = OJ.objects.get_or_create(name=name, max_problem_id=max_id)
+        noj = OJ.objects.get_or_create(name=name)
+        noj.max_problem_id = max_id
+        noj.save()
         print(noj)
 
 
@@ -88,8 +90,18 @@ def update_hdu(up_id=None):
     oj.save()
 
 
+def up_case(s):
+    cr = ord(s[0])
+    if 96 < cr < 123:
+        return chr(cr-32) + s[1:]
+    return s
+
+
 if __name__ == '__main__':
-    init()
+    flag = input("Need init?(Y or N): ")
+    flag = up_case(flag)
+    if flag[0] == 'Y':
+        init()
     update_poj(1121)
     update_hdu(1100)
     update_cf(20)

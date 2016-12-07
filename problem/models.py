@@ -29,6 +29,8 @@ class ProblemTag(models.Model):
 
 
 class Problem(models.Model):
+    # 原始url
+    origin_url = models.CharField('源url', max_length=50, default="django-you")
     # 所属OJ
     oj = models.CharField('所属OJ', max_length=30)
     # 所属OJ ID

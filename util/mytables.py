@@ -8,6 +8,19 @@ from table.columns import Column
 from django.utils import timezone
 
 
+class MyLinkColumn(Column):
+    def __init__(self, header=None, links=None, delimiter='&nbsp', field=None, **kwargs):
+        self.links = links
+        self.delimiter = delimiter
+        kwargs['safe'] = False
+        super(MyLinkColumn, self).__init__(field, header, **kwargs)
+
+    def render(self, obj):
+
+        print(link.render(obj) for link in self.links)
+        return self.delimiter.join([link.render(obj) for link in self.links])
+
+
 class MyDateTimeColumn(Column):
 
     DEFAULT_FORMAT = "%Y-%m-%d %H:%I:%S"
@@ -74,6 +87,7 @@ class MyLink(object):
                                      if isinstance(self.current_app, Accessor)
                                      else self.current_app)
 
+        # print(reverse(self.viewname, **params))
         return reverse(self.viewname, **params)
 
     @property
@@ -86,6 +100,7 @@ class MyLink(object):
         """ Render link as HTML output tag <a>.
         """
         self.obj = obj
+        # print(self.attrs)
         attrs = ' '.join([
             '%s="%s"' % (attr_name, attr.resolve(obj))
             if isinstance(attr, Accessor)
