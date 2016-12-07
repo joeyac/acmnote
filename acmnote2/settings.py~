@@ -159,7 +159,7 @@ STATIC_URL = '/static/'
 
 PROJECT_ROOT = os.path.normpath(os.path.dirname('acmnote2'))
 
-# STATICFILES_DIRS = ( os.path.join(PROJECT_ROOT, "static"), )
+STATICFILES_DIRS = ( os.path.join(PROJECT_ROOT, "static"), )
 # 用上面两行替代下面一行解决admin后台css样式与前台静态文件不能共存问题
 STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
 

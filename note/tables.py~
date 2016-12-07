@@ -29,11 +29,11 @@ class ClassicNoteTable(Table):
     # problem_info = Column(field='get_problem_info', header=u'题目信息',
     #                       header_attrs={'width': '20%'})
 
-    pub_time = DatetimeColumn(field='pub_time', header=u'发表时间',
-                                format="%Y年%m月%d日 %H:%I", searchable=False,
+    pub_time = MyDateTimeColumn(field='pub_time', header=u'发表时间',
+                                format="%Y年%m月%d日 %H:%I"
                                 )
-    update_time = DatetimeColumn(field='update_time', header=u'最后更新时间',
-                                   format="%Y年%m月%d日 %H:%I", searchable=False,
+    update_time = MyDateTimeColumn(field='update_time', header=u'最后更新时间',
+                                   format="%Y年%m月%d日 %H:%I"
                                    )
 
     class Meta:
